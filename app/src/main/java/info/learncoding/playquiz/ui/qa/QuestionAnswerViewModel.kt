@@ -149,6 +149,7 @@ class QuestionAnswerViewModel @Inject constructor(
             }
 
             override fun onFinish() {
+                countDownTimer?.cancel()
                 updateNextQuestion()
             }
         }.start()
