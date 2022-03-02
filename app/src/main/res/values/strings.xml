@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PlayQuiz</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="highest_score_point">Highscore\n %d Point</string>
+    <string name="play_quiz">Let\'s Play</string>
+    <string name="value_point">%d point</string>
+    <string name="score_value">Score: %d</string>
+    <string name="question_index_total_value">Questions : %d/%d</string>
+</resources>
