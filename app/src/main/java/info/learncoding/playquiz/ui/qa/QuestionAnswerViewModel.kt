@@ -2,6 +2,7 @@ package info.learncoding.playquiz.ui.qa
 
 import android.os.CountDownTimer
 import android.view.View
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
@@ -41,6 +42,7 @@ class QuestionAnswerViewModel @Inject constructor(
     val currentIndex = ObservableInt(0)
     val totalQuestion = ObservableField(0)
     val progress = ObservableInt(10)
+    val answerEnable = ObservableBoolean(true)
 
     init {
         fetchQuizs()
@@ -120,6 +122,7 @@ class QuestionAnswerViewModel @Inject constructor(
     private fun updateNextQuestion(isFirst: Boolean = false) {
         countDownTimer?.cancel()
         viewModelScope.launch(Dispatchers.Main) {
+            answerEnable.set(false)
             if (!isFirst) {
                 delay(2000L)
                 progress.set(10)
@@ -128,6 +131,7 @@ class QuestionAnswerViewModel @Inject constructor(
             if (tempQuestions.size > currentIndex.get()) {
                 question.set(tempQuestions[currentIndex.get()])
                 answerStrokeColors.set(hashMapOf())
+                answerEnable.set(true)
                 startAnswerTimer()
             } else {
                 quizCompleteListener?.invoke()
