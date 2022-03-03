@@ -29,20 +29,22 @@ class QuestionAnswerViewModel @Inject constructor(
         private const val QUESTION_PROGRESS_INTERVAL = 1000L
     }
 
-    private var countDownTimer: CountDownTimer? = null
-    var quizCompleteListener: (() -> Unit)? = null
     private val _questions = MutableLiveData<DataState<List<Question>>>()
     val questions: LiveData<DataState<List<Question>>> = _questions
     private val tempQuestions = mutableListOf<Question>()
+    val currentQuestion: ObservableField<Question> = ObservableField()
 
-    val question: ObservableField<Question> = ObservableField()
     val totalScore = ObservableInt(0)
 
-    val answerStrokeColors = ObservableField<Map<String, String>>(hashMapOf())
     val currentIndex = ObservableInt(0)
     val totalQuestion = ObservableField(0)
-    val progress = ObservableInt(10)
+
+    val answerStrokeColors = ObservableField<Map<String, String>>(hashMapOf())
     val answerEnable = ObservableBoolean(true)
+
+    private var countDownTimer: CountDownTimer? = null
+    val progress = ObservableInt(10)
+    var quizCompleteListener: (() -> Unit)? = null
 
     init {
         fetchQuizs()
@@ -65,8 +67,8 @@ class QuestionAnswerViewModel @Inject constructor(
     }
 
     fun onAnswerAClicked(view: View) {
-        if ("A" == question.get()?.correctAnswer) {
-            updateScore(question.get()?.score)
+        if ("A" == currentQuestion.get()?.correctAnswer) {
+            updateScore(currentQuestion.get()?.score)
             updateStrokeColor("A", true)
         } else {
             updateStrokeColor("A", false)
@@ -75,8 +77,8 @@ class QuestionAnswerViewModel @Inject constructor(
     }
 
     fun onAnswerBClicked(view: View) {
-        if ("B" == question.get()?.correctAnswer) {
-            updateScore(question.get()?.score)
+        if ("B" == currentQuestion.get()?.correctAnswer) {
+            updateScore(currentQuestion.get()?.score)
             updateStrokeColor("B", true)
         } else {
             updateStrokeColor("B", false)
@@ -85,8 +87,8 @@ class QuestionAnswerViewModel @Inject constructor(
     }
 
     fun onAnswerCClicked(view: View) {
-        if ("C" == question.get()?.correctAnswer) {
-            updateScore(question.get()?.score)
+        if ("C" == currentQuestion.get()?.correctAnswer) {
+            updateScore(currentQuestion.get()?.score)
             updateStrokeColor("C", true)
         } else {
             updateStrokeColor("C", false)
@@ -95,8 +97,8 @@ class QuestionAnswerViewModel @Inject constructor(
     }
 
     fun onAnswerDClicked(view: View) {
-        if ("D" == question.get()?.correctAnswer) {
-            updateScore(question.get()?.score)
+        if ("D" == currentQuestion.get()?.correctAnswer) {
+            updateScore(currentQuestion.get()?.score)
             updateStrokeColor("D", true)
         } else {
             updateStrokeColor("D", false)
@@ -113,7 +115,7 @@ class QuestionAnswerViewModel @Inject constructor(
             if (isCorrect) {
                 put(answer, "#FF388E3C")
             } else {
-                put(question.get()?.correctAnswer ?: return, "#FF388E3C")
+                put(currentQuestion.get()?.correctAnswer ?: return, "#FF388E3C")
                 put(answer, "#FFD32F2F")
             }
         })
@@ -129,11 +131,12 @@ class QuestionAnswerViewModel @Inject constructor(
                 currentIndex.set(currentIndex.get() + 1)
             }
             if (tempQuestions.size > currentIndex.get()) {
-                question.set(tempQuestions[currentIndex.get()])
+                currentQuestion.set(tempQuestions[currentIndex.get()])
                 answerStrokeColors.set(hashMapOf())
                 answerEnable.set(true)
                 startAnswerTimer()
             } else {
+                quizRepository.saveScore(totalScore.get())
                 quizCompleteListener?.invoke()
             }
         }

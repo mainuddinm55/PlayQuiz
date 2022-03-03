@@ -12,208 +12,225 @@
             type="info.learncoding.playquiz.ui.qa.QuestionAnswerViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/main_bg_color"
-        android:padding="30dp"
-        tools:context=".ui.qa.QuestionAnswerFragment">
+        android:background="@color/main_bg_color">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/question_stats_text_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@{@string/question_index_total_value(viewModel.currentIndex+1,viewModel.totalQuestion)}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/question_index_total_value" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/data_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="30dp"
+            android:visibility="gone"
+            tools:context=".ui.qa.QuestionAnswerFragment"
+            tools:visibility="visible">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/score_text_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@{@string/score_value(viewModel.totalScore)}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/score_value" />
-
-        <androidx.core.widget.ContentLoadingProgressBar
-            android:id="@+id/progress_bar"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:max="10"
-            android:progress="@{viewModel.progress}"
-            android:secondaryProgress="@integer/material_motion_duration_long_1"
-            android:secondaryProgressTint="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/question_stats_text_view"
-            tools:progress="5" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/question_card_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/progress_bar">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/question_stats_text_view"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:text="@{@string/question_index_total_value(viewModel.currentIndex+1,viewModel.totalQuestion)}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/question_index_total_value" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/point_text_view"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/score_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{@string/score_value(viewModel.totalScore)}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/score_value" />
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                android:id="@+id/quiz_time_progress_bar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:max="10"
+                android:progress="@{viewModel.progress}"
+                android:secondaryProgress="@integer/material_motion_duration_long_1"
+                android:secondaryProgressTint="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/question_stats_text_view"
+                tools:progress="5" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/question_card_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/quiz_time_progress_bar">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="@{@string/value_point(viewModel.question.score)}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/black"
-                    app:layout_constraintBottom_toTopOf="@id/quiz_image_view"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="@string/value_point" />
+                    android:orientation="vertical">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/quiz_image_view"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/logo"
-                    app:image_url="@{viewModel.question.questionImageUrl}"
-                    app:layout_constraintBottom_toTopOf="@id/quiz_text_view"
-                    app:layout_constraintDimensionRatio="1:0.8"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/point_text_view"
-                    app:layout_constraintWidth_percent="0.5"
-                    app:view_visibility="@{viewModel.question.questionImageUrl}" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/point_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="@{@string/value_point(viewModel.currentQuestion.score)}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/black"
+                        app:layout_constraintBottom_toTopOf="@id/quiz_image_view"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@string/value_point" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/quiz_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="@{HtmlCompat.fromHtml(viewModel.question.question==null ? `` : viewModel.question.question ,HtmlCompat.FROM_HTML_MODE_COMPACT)}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/black"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/quiz_image_view"
-                    tools:text="What's this logo?" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/quiz_image_view"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/logo"
+                        app:image_url="@{viewModel.currentQuestion.questionImageUrl}"
+                        app:layout_constraintBottom_toTopOf="@id/quiz_text_view"
+                        app:layout_constraintDimensionRatio="1:0.8"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/point_text_view"
+                        app:layout_constraintWidth_percent="0.5"
+                        app:view_visibility="@{viewModel.currentQuestion.questionImageUrl}" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/quiz_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="@{HtmlCompat.fromHtml(viewModel.currentQuestion.question==null ? `` : viewModel.currentQuestion.question ,HtmlCompat.FROM_HTML_MODE_COMPACT)}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/black"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/quiz_image_view"
+                        tools:text="What's this logo?" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/answer_a_text_view"
-            android:layout_width="0dp"
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/answer_a_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
+                android:enabled="@{viewModel.answerEnable}"
+                android:onClick="@{viewModel::onAnswerAClicked}"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:text="@{viewModel.currentQuestion.answers.a}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/black"
+                app:answer_stroke_color="@{viewModel.answerStrokeColors.get(`A`)}"
+                app:backgroundTint="@color/white"
+                app:cornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/question_card_view"
+                app:strokeWidth="5dp"
+                app:view_visibility="@{viewModel.currentQuestion.answers.a}"
+                tools:text="JAVA" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/answer_b_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:enabled="@{viewModel.answerEnable}"
+                android:onClick="@{viewModel::onAnswerBClicked}"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:text="@{viewModel.currentQuestion.answers.b}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/black"
+                app:answer_stroke_color="@{viewModel.answerStrokeColors.get(`B`)}"
+                app:backgroundTint="@color/white"
+                app:cornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/answer_a_text_view"
+                app:strokeWidth="5dp"
+                app:view_visibility="@{viewModel.currentQuestion.answers.b}"
+                tools:text="CSS" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/answer_c_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:enabled="@{viewModel.answerEnable}"
+                android:onClick="@{viewModel::onAnswerCClicked}"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:text="@{viewModel.currentQuestion.answers.c}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/black"
+                app:answer_stroke_color="@{viewModel.answerStrokeColors.get(`C`)}"
+                app:backgroundTint="@color/white"
+                app:cornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/answer_b_text_view"
+                app:strokeWidth="5dp"
+                app:view_visibility="@{viewModel.currentQuestion.answers.c}"
+                tools:text="HTML" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/answer_d_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:enabled="@{viewModel.answerEnable}"
+                android:onClick="@{viewModel::onAnswerDClicked}"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:text="@{viewModel.currentQuestion.answers.d}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/black"
+                app:answer_stroke_color="@{viewModel.answerStrokeColors.get(`D`)}"
+                app:backgroundTint="@color/white"
+                app:cornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/answer_c_text_view"
+                app:strokeWidth="5dp"
+                app:view_visibility="@{viewModel.currentQuestion.answers.d}"
+                tools:text="JS" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="16dp"
-            android:enabled="@{viewModel.answerEnable}"
-            android:onClick="@{viewModel::onAnswerAClicked}"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:text="@{viewModel.question.answers.a}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/black"
-            app:answer_stroke_color="@{viewModel.answerStrokeColors.get(`A`)}"
-            app:backgroundTint="@color/white"
-            app:cornerRadius="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/question_card_view"
-            app:strokeWidth="5dp"
-            app:view_visibility="@{viewModel.question.answers.a}"
-            tools:text="JAVA" />
+            android:layout_gravity="center"
+            android:visibility="visible" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/answer_b_text_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:enabled="@{viewModel.answerEnable}"
-            android:onClick="@{viewModel::onAnswerBClicked}"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:text="@{viewModel.question.answers.b}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/black"
-            app:answer_stroke_color="@{viewModel.answerStrokeColors.get(`B`)}"
-            app:backgroundTint="@color/white"
-            app:cornerRadius="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/answer_a_text_view"
-            app:strokeWidth="5dp"
-            app:view_visibility="@{viewModel.question.answers.b}"
-            tools:text="CSS" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/answer_c_text_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:enabled="@{viewModel.answerEnable}"
-            android:onClick="@{viewModel::onAnswerCClicked}"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:text="@{viewModel.question.answers.c}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/black"
-            app:answer_stroke_color="@{viewModel.answerStrokeColors.get(`C`)}"
-            app:backgroundTint="@color/white"
-            app:cornerRadius="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/answer_b_text_view"
-            app:strokeWidth="5dp"
-            app:view_visibility="@{viewModel.question.answers.c}"
-            tools:text="HTML" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/answer_d_text_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:enabled="@{viewModel.answerEnable}"
-            android:onClick="@{viewModel::onAnswerDClicked}"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:text="@{viewModel.question.answers.d}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/black"
-            app:answer_stroke_color="@{viewModel.answerStrokeColors.get(`D`)}"
-            app:backgroundTint="@color/white"
-            app:cornerRadius="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/answer_c_text_view"
-            app:strokeWidth="5dp"
-            app:view_visibility="@{viewModel.question.answers.d}"
-            tools:text="JS" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

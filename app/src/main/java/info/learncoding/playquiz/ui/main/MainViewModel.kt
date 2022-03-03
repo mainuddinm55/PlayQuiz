@@ -18,4 +18,5 @@ class MainViewModel @Inject constructor(
     fun letPlayClicked(view: View) {
         view.findNavController().navigate(R.id.action_main_fragment_to_question_answer_fragment)
     }
+
 }

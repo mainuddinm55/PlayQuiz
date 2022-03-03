@@ -7,4 +7,5 @@
     <string name="value_point">%d point</string>
     <string name="score_value">Score: %d</string>
     <string name="question_index_total_value">Questions : %d/%d</string>
+    <string name="quiz">QUIZ</string>
 </resources>

@@ -10,11 +10,10 @@ import info.learncoding.playquiz.databinding.ActivityMainBinding
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    protected lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
     }
 }

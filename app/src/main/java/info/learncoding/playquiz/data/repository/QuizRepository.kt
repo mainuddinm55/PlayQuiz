@@ -10,4 +10,6 @@ interface QuizRepository {
 
     fun getHighestScore(): LiveData<Int>
 
+    fun saveScore(score: Int)
+
 }

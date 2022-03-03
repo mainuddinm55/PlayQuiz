@@ -9,6 +9,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import info.learncoding.playquiz.BuildConfig
+import info.learncoding.playquiz.data.local.SharedPrefImp
+import info.learncoding.playquiz.data.local.SharedPref
 import info.learncoding.playquiz.data.network.ApiClient
 import info.learncoding.playquiz.data.network.NetworkInterceptor
 import info.learncoding.playquiz.data.repository.QuizRepository
@@ -76,8 +78,14 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideQuizRepository(apiClient: ApiClient): QuizRepository {
-        return QuizRepositoryImp(apiClient)
+    fun provideDataStorePreference(@ApplicationContext context: Context): SharedPref {
+        return SharedPrefImp(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideQuizRepository(apiClient: ApiClient, sharedPref: SharedPref): QuizRepository {
+        return QuizRepositoryImp(apiClient, sharedPref)
     }
 }
 
